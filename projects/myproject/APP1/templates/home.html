@@ -1,0 +1,135 @@
+{%extends 'base.html'%}
+{%load static%}
+
+{%block content%}
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
+    <div class="container" data-aos="zoom-out" data-aos-delay="100">
+      <h1>AIMS INSURANCE<span>LTD</span></h1>
+      <h2>stay connected</h2>
+      <div class="d-flex">
+        <a href="#about" class="btn-get-started scrollto">Get Started</a>
+        <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
+      </div>
+    </div>
+  </section><!-- End Hero -->
+
+
+
+
+
+
+
+
+
+
+  <!-- ======= Featured Services Section ======= -->
+  <section id="featured-services" class="featured-services">
+    <div class="container" data-aos="fade-up">
+      <div class="row">
+
+        {%for mgt in admin%}
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+          <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+            <div class="icon"><img src="{{mgt.Passport.url}}"class="img-thumbnail w-100 h-75"></div>     
+            <h4 class="title"style="text-transform:upper-case"><a href="">{{mgt.Role}}</a></h4><hr>
+                      
+            <figcaption class="blockquote-footer">
+                <i class="bx bx-file"></i>Message:  {{mgt.Message}}</p>
+             </figure>
+
+            <figcaption class="blockquote-footer">
+               Phone:  <cite title="Source Title">{{mgt.Phone}}</cite>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+        {%endfor%}
+
+   
+ 
+
+  
+
+      </div>
+
+    </div>
+  </section><!-- End Featured Services Section -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <main id="main">
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+          <div class="col-lg-4" data-aos="fade-right" data-aos-delay="100">
+            <img src="{% static 'assets/img/screen2.png'%}" class="img-thumbnail" alt="">
+          </div>
+          <div class="col-lg-8 pt-4 pt-lg-0 content d-flex flex-column" data-aos="fade-up" data-aos-delay="100">
+        
+         
+
+<script>
+    $(document).ready(function () {
+    $('#mtable').DataTable();
+});
+</script>
+
+<div class="card"style="padding:5px">
+            <table id="mtable" class="table table-stripped-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Heading</th>
+                        <th>Date Registered</th>
+                        <th>Document</th>
+                        <th>Logo</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for loop in updates%}
+                    <tr>
+                        <td>{{loop.Heading}}</td>
+                        <td>{{loop.DateRegistered}}</td>
+                        <td><a href="{{loop.Document.url}}"> <i class="bx bx-download"></i></a></td>
+                        <td><img src="{{loop.Logo.url}}"class="img-thumbnail"style="width:200px"></td>
+                    </tr>
+                    {%endfor%}
+        
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Heading</th>
+                        <th>Date Registered</th>
+                        <th>Document</th>
+                        <th>Logo</th>
+                        
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+          
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+
+{%endblock%}
