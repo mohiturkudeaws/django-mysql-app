@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+
+    environment {
+        // Use BRANCH_NAME if available, otherwise default to 'main'
+        TARGET_BRANCH = "${env.BRANCH_NAME ?: 'main'}"
+    }
+
+    stages {
+        stage('Code Checkout') {
+            steps {
+                script {
+                    // Determine the branch based on the naming
+                    def branchToCheckout
+                    if (TARGET_BRANCH.startsWith('feature/')) {
+                        branchToCheckout = TARGET_BRANCH
+                    } else if (TARGET_BRANCH.startsWith('developer/')) {
+                        branchToCheckout = TARGET_BRANCH
+                    } else if (TARGET_BRANCH == 'production') {
+                        branchToCheckout = 'production'
+                    } else {
+                        branchToCheckout = 'main'
+                    }
+
+                    echo "Checking out branch: ${branchToCheckout}"
+                    git url: 'https://github.com/mohiturkudeaws/django-mysql-app.git', branch: branchToCheckout
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                dir('projects/myproject') {
+                    script {
+                        // Tag Docker image with branch name
+                        def imageTag = TARGET_BRANCH.replaceAll('/', '-')
+                        sh "docker build -t python-app:${imageTag} ."
+                        echo "Docker image built with tag: python-app:${imageTag}"
+                    }
+                }
+            }
+        }
+    }
+}
